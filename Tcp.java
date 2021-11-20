@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Scanner;
 import java.nio.charset.StandardCharsets;
 
 interface ToyTCPStream{
@@ -21,19 +20,15 @@ public class Tcp implements ToyTCPStream{
     public int read(byte[] data){
         int i=1;
         while(map.containsKey(i-1)){
-            System.out.println(i);
             String s = map.get(i-1);
-            System.out.println(s);
             for(int j=0;j<s.length();j++){
                 data[i-1+j]=(byte)(s.charAt(j));
             }
-            System.out.println("yes");
             i+=s.length()-1;
         }
         return i-1;
     }
     public static void main(String args[]){
-        Scanner scn = new Scanner(System.in);
         String s = "I ";
         byte[] arr = s.getBytes();
 
