@@ -7,7 +7,6 @@ class CompressedData{
 
 }
 
-
 public class Compress implements Codec{
     public CompressedData compress(String data){
         return new CompressedData();

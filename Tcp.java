@@ -1,4 +1,6 @@
 import java.util.HashMap;
+import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 interface ToyTCPStream{
     public void receive(int chunk, byte[] data);
@@ -12,21 +14,32 @@ public class Tcp implements ToyTCPStream{
         map = new HashMap<>();
     }
     public void receive(int chunk, byte[] data){
-        map.put(chunk-1, data.toString());
+        String s = new String(data, StandardCharsets.UTF_8);
+        map.put(chunk-1, s);
     }
 
     public int read(byte[] data){
         int i=1;
         while(map.containsKey(i-1)){
+            System.out.println(i);
             String s = map.get(i-1);
+            System.out.println(s);
             for(int j=0;j<s.length();j++){
                 data[i-1+j]=(byte)(s.charAt(j));
             }
-            i+=s.length();
+            System.out.println("yes");
+            i+=s.length()-1;
         }
         return i-1;
     }
     public static void main(String args[]){
+        Scanner scn = new Scanner(System.in);
+        String s = "I ";
+        byte[] arr = s.getBytes();
 
+        Tcp a = new Tcp();
+        a.receive(1, arr);
+        byte[] ab = new byte[10];
+        System.out.println(a.read(ab));
     }
 }
